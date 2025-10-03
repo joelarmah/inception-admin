@@ -31,7 +31,8 @@ export default function CompaniesPage() {
     setLoading(true);
     try {
       const companyData = await fetchCompanies();
-      setCompanies(companyData);
+      setCompanies(companyData.companies);
+      console.log(`companies ==> ${JSON.stringify(companyData)}`);
     } catch (error) {
       setCompanies([]);
       console.log("No existing company profile", error);
