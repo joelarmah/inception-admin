@@ -1,4 +1,5 @@
 import { apiClient } from "@/lib/apiClient";
+import { Company, PagedResponse } from "@/types";
 
 export async function createCompany(data: any) {
   return apiClient<{}>(`/companies/company`, {
@@ -15,7 +16,8 @@ export async function updateCompany(companyId: string, data: any) {
 }
 
 export async function fetchCompanies() {
-  return apiClient<[]>(`/companies/company`, {
+  return apiClient<PagedResponse<Company, "companies">>(`/companies/companies`, {
     method: "GET",
   });
 }
+ 
