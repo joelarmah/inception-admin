@@ -8,7 +8,7 @@ export async function getDevelopers() {
 }
 
 export async function getDeveloperById(developerId: string) {
-  return apiClient<[]>(`/admin/developers`, {
+  return apiClient<[]>(`/admin/developers/${developerId}/`, {
     method: "GET",
   });
 }

@@ -1,20 +1,18 @@
 import { Project } from "@/types"
 
-interface ProjectCardProps {
-  project: Project
-}
+interface ProjectCardProps extends Project {};
 
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({ title, status }: ProjectCardProps) {
   return (
     <div className="bg-white rounded-xl p-6 border border-[#e2e8f0] hover:shadow-sm transition-shadow">
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1">
-          <h3 className="font-semibold text-[#2b3674] text-lg mb-1">{project.title}</h3>
-          <p className="text-[#8f9bba] text-sm">{project.title}</p>
+          <h3 className="font-semibold text-[#2b3674] text-lg mb-1">{title}</h3>
+          <p className="text-[#8f9bba] text-sm">{title}</p>
         </div>
 
         <div className={`px-3 py-1 rounded-full text-xs font-medium text-white`}>
-          {project.status}
+          {status}
         </div>
       </div>
 

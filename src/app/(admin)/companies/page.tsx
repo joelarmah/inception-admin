@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import useApi from "@/hooks/use-api";
 import { BriefcaseBusiness, Loader2 } from "lucide-react";
 import { Company } from "@/types";
 import { Card } from "@/components/ui/card";
@@ -19,9 +18,9 @@ import { fetchCompanies } from "@/services/companyService";
 import { EmptyState } from "@/components/empty-state";
 
 export default function CompaniesPage() {
+
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [companies, setCompanies] = useState<Company[] | null>(null);
 
   useEffect(() => {
@@ -29,6 +28,7 @@ export default function CompaniesPage() {
   }, []);
 
   const loadData = async () => {
+    setLoading(true);
     try {
       const companyData = await fetchCompanies();
       setCompanies(companyData);
@@ -40,7 +40,7 @@ export default function CompaniesPage() {
     }
   };
 
-  if (loading) {
+ if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <Loader2 className="w-12 h-12 animate-spin" />
