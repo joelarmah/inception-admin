@@ -13,10 +13,12 @@ export interface User {
   first_name: string;
   last_name: string;
   user_type: UserType;
+  profile_image_url: string;
+  is_admin: boolean;
+  username: string;
   created_at: string;
   updated_at: string;
 }
-
 export interface Company {
   id: string;
   name: string;
@@ -33,7 +35,12 @@ export interface Company {
   created_at: string;
   updated_at: string;
 }
-
+export interface Project {
+  id: string;
+  name: string;
+  category_id: string;
+  
+}
 export interface DeveloperProfile {
   id: string;
   user_id: string;
@@ -128,3 +135,11 @@ export interface TechStack extends ReferenceData {
   category?: string;
   popularity_score?: number;
 }
+
+export type PagedResponse<T> = {
+  items: T[];
+  total: number;
+  page: number;
+  page_size: number;
+  pages: number;
+};

@@ -21,8 +21,6 @@ import { fetchReference } from "@/services/referenceService";
 
 export default function ReferencesPage() {
 
-  // const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-
   const referenceData = [
     {
       title: "Tech Stacks",

@@ -1,0 +1,52 @@
+import { apiClient } from "@/lib/apiClient";
+import { DeveloperProfile, PagedResponse } from "@/types";
+
+export async function getDevelopers() {
+  return apiClient<PagedResponse<DeveloperProfile>>(`/admin/developers/`, {
+    method: "GET",
+  });
+}
+
+export async function getDeveloperById(developerId: string) {
+  return apiClient<[]>(`/admin/developers`, {
+    method: "GET",
+  });
+}
+
+export async function approveDeveloper(
+  developerId: string,
+  reason: string,
+  notes: string
+) {
+  return apiClient<{}>(`/admin/developers/${developerId}/approve/`, {
+    method: "POST",
+    body: { reason: reason, notes: notes },
+  });
+}
+
+export async function rejectDeveloper(
+  developerId: string,
+  reason: string,
+  notes: string
+) {
+  return apiClient<{}>(`/admin/developers/${developerId}/approve/`, {
+    method: "POST",
+    body: { reason: reason, notes: notes },
+  });
+}
+
+export async function createDeveloper(
+  data: string
+) {
+  return apiClient<{}>(`/admin/developers/`, {
+    method: "POST",
+    body: data,
+  });
+}
+
+export async function updateDeveloper(developerId: string, data: any) {
+  return apiClient<{}>(`/projects/${developerId}/`, {
+    method: "PUT",
+    body: data,
+  });
+}

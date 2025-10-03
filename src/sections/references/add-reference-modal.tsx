@@ -10,6 +10,7 @@ import { useState } from "react";
 import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
 import { createReference } from "@/services/referenceService";
+import { format } from "path";
 
 type AddReferenceModalProps = {
   title: String;
@@ -34,18 +35,11 @@ export function AddReferenceModal({
   const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
-    console.log("handlesubmit ==> ")
     e.preventDefault();
     setSaving(true);
     setError(null);
     try {
-    //   const res = await fetch(endpoint, {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({ name: formData.name }),
-    //   });
-
-      const res = await createReference(activeKey, { name: formData.name });
+      const res = await createReference(activeKey, { name: formData.name, description: formData.name });
 
       // if (!res.ok) throw new Error(`Request failed: ${res.status}`);
       const json = await res;

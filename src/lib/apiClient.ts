@@ -1,4 +1,6 @@
 
+import toast from "react-hot-toast";
+
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
 
 type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
@@ -21,15 +23,25 @@ export async function apiClient<TResponse, TBody = unknown>(
 ): Promise<TResponse> {
 
   const token = tokenProvider ? await tokenProvider() : null;
-  console.log(`Token ==> ${token}`)
+  // console.log(`Token ==> ${token}`)
+
+  const finalHeaders: Record<string, string> = {
+    "Content-Type": "application/json",
+    ...headers,
+  };
+
+  if (token) {
+    finalHeaders.Authorization = `Bearer ${token}`;
+  }
 
   const res = await fetch(`${API_BASE_URL}${endpoint}`, {
     method,
-    headers: {
-      "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...headers,
-    },
+    // headers: {
+    //   "Content-Type": "application/json",
+    //   'Authorization': `Bearer ${token}`,
+    //   ...headers,
+    // },
+    headers: finalHeaders,
     body: body ? JSON.stringify(body) : undefined,
   });
 
@@ -44,6 +56,9 @@ export async function apiClient<TResponse, TBody = unknown>(
       const errText = await res.text();
       if (errText) errorMsg = errText;
     }
+
+    toast.error(errorMsg);
+
     throw new Error(errorMsg);
   }
 
