@@ -1,0 +1,29 @@
+export interface Project {
+  id: string;
+  title: string;
+  code_name: string;
+  description: string;
+  status: string;
+  category?: any;
+  scope?: any;
+  experience_level?: any;
+  budget_type: any;
+  budget_amount?: number;
+  budget_currency?: string;
+  hourly_rate_min?: number;
+  hourly_rate_max?: number;
+  tech_stacks?: any[];
+  tech_stack?: string[];
+  project_types?: any[];
+  client_id: string;
+  company_id?: number;
+  attachments?: any[];
+  is_featured: boolean;
+  is_urgent: boolean;
+  visibility: string;
+  created_at: string;
+  updated_at: string;
+  published_at?: string;
+  deadline?: string;
+  bid_count?: number;
+}

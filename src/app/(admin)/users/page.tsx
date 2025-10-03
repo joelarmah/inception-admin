@@ -25,7 +25,6 @@ export default function UsersPage() {
 
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
-  // const api = useApi();
 
   useEffect(() => {
     loadUsers();
@@ -34,8 +33,6 @@ export default function UsersPage() {
   const loadUsers = async () => {
     try {
       setLoading(true);
-
-      // Load approved developers
       const usersData = await getUsers();
       console.log(`Users ==> ${JSON.stringify(usersData)}`);
       setUsers(usersData.items || []);
