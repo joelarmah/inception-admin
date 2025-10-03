@@ -11,6 +11,7 @@ interface GetStartedChecklistProps {
 }
 
 export function GetStartedChecklist({ items }: GetStartedChecklistProps) {
+
   return (
     <div className="bg-white rounded-2xl p-6 border border-[#e0e5f2]">
       <h3 className="font-bold text-[#2b3674] text-lg mb-6">Get Started</h3>

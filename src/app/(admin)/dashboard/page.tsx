@@ -1,42 +1,66 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { StatsCard } from "@/components/stats-card"
 import { ProjectCard } from "@/components/project-card"
 import { LeaderBoard } from "@/components/leader-board"
 import { GetStartedChecklist } from "@/components/get-started-checklist"
 import { EmptyState } from "@/components/empty-state"
-import { TrendingUp, CheckCircle, FolderOpen, Bell, User, Folder, Clock } from "lucide-react"
+import { TrendingUp, CheckCircle, Folder, Clock } from "lucide-react"
+import { getDashboardStats } from "@/services/dashboardService"
+import { DashboardStats } from "@/types"
 
 export default function DashboardPage() {
+
+  const [loading,setLoading] = useState(false);
+  const [dashboard, setDashboard] = useState<DashboardStats>();
+
+  useEffect(() => {
+    fetchDashboardStats();
+  }, []);
+
+  const fetchDashboardStats = async () => {
+    setLoading(true);
+    try {
+      const dashboardData = await getDashboardStats();
+      console.log(`Dashboard ==> ${JSON.stringify(dashboardData)}`);
+      setDashboard(dashboardData);
+    } catch (error) {
+      // setDashboard(null);
+    } finally {
+      setLoading(false);
+    }
+  };
   
   const [showPopulatedData, setShowPopulatedData] = useState(false)
 
   const projects = showPopulatedData
     ? [
         {
+          id: 1,
+          code_name: "",
           title: "Abstract Colors",
           author: "Esthera Jackson",
           currentBid: "0.91 ETH",
-          gradientClass: "project-gradient-1",
         },
         {
+          id: 2,
+          code_name: "",
           title: "ETH AI Brain",
           author: "Nick Wilson",
           currentBid: "2.82 ETH",
-          gradientClass: "project-gradient-2",
         },
         {
+          id: 3,
+          code_name: "",
           title: "Mesh Gradients",
           author: "Will Smith",
           currentBid: "0.56 ETH",
-          gradientClass: "project-gradient-3",
         },
       ]
     : []
 
-  const recentProjects = showPopulatedData
-    ? [
+  const recentProjects =[
         {
           title: "Swipe Circles",
           author: "Peter Will",
@@ -56,7 +80,6 @@ export default function DashboardPage() {
           gradientClass: "project-gradient-6",
         },
       ]
-    : []
 
   const taskHistory = showPopulatedData
     ? [
@@ -95,32 +118,33 @@ export default function DashboardPage() {
     { name: "L", username: "@leon_pwrr", tokens: 2309 },
   ]
 
-  const mockChecklist = [
-    {
-      title: "Complete Profile",
-      subtitle: "Submit test to accept and place bids",
-      completed: true,
-    },
-    {
-      title: "Take Test",
-      subtitle: "Submit test based on your skillset",
-      completed: false,
-    },
-    {
-      title: "Payout",
-      subtitle: "Provide details of how you wish to be paid",
-      completed: false,
-    },
-  ]
+  // const mockChecklist = [
+  //   {
+  //     title: "Complete Profile",
+  //     subtitle: "Submit test to accept and place bids",
+  //     completed: true,
+  //   },
+  //   {
+  //     title: "Take Test",
+  //     subtitle: "Submit test based on your skillset",
+  //     completed: false,
+  //   },
+  //   {
+  //     title: "Payout",
+  //     subtitle: "Provide details of how you wish to be paid",
+  //     completed: false,
+  //   },
+  // ]
 
   return (
     <div className="grid grid-cols-12 gap-6">
-    <div className="col-span-8">
+    <div className="col-span-12">
       {/* Stats */}
       <div className="grid grid-cols-3 gap-6 mb-8">
-        <StatsCard title="Earnings" value="€350.4" icon={TrendingUp} iconBg="bg-[#4318ff]" />
-        <StatsCard title="New Tasks" value="154" subtitle="+23% since last month" icon={CheckCircle} iconBg="bg-[#4318ff]" />
-        <StatsCard title="Total Projects" value="2" icon={Folder} iconBg="bg-[#4318ff]" />
+        <StatsCard title="Total Projects" value={dashboard?.total_projects ?? 0} subtitle={dashboard?.growth_rate_projects ?? "-"} icon={TrendingUp} iconBg="bg-[#4318ff]" />
+        <StatsCard title="Total Squad" value={dashboard?.total_developers ?? 0} icon={CheckCircle} iconBg="bg-[#4318ff]" />
+        <StatsCard title="Total Companies" value={dashboard?.total_companies ?? 0} icon={Folder} iconBg="bg-[#4318ff]" />
+        <StatsCard title="Total Projects" value={dashboard?.total_companies ?? 0} icon={Folder} iconBg="bg-[#4318ff]" />
       </div>
 
       {/* Projects */}
@@ -140,24 +164,11 @@ export default function DashboardPage() {
           />
         )}
       </div>
-
-      {/* Recently Added */}
-      <h3 className="text-xl font-bold text-[#2b3674] mb-6">Recently Added</h3>
-      {recentProjects.length > 0 ? (
-        <div className="grid grid-cols-3 gap-6">
-          {recentProjects.map((project, i) => <ProjectCard key={i} {...project} />)}
-        </div>
-      ) : (
-        <EmptyState
-          icon={Folder}
-          title="No recent projects"
-          description="New projects will appear here when they're added"
-        />
-      )}
     </div>
 
     <div className="col-span-4 space-y-6">
-      <GetStartedChecklist items={mockChecklist} />
+      {/* {dashboard?.recent_activities && <GetStartedChecklist items={mockChecklist} /> } */}
+
       <LeaderBoard leaders={mockLeaders} />
 
       <div className="bg-white rounded-2xl p-6 border border-[#e0e5f2]">

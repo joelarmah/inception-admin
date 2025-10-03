@@ -2,8 +2,8 @@ import type { LucideIcon } from "lucide-react"
 
 interface StatsCardProps {
   title: string
-  value: string
-  subtitle?: string
+  value: string | number
+  subtitle?: string | number
   icon: LucideIcon
   iconBg: string
 }
