@@ -1,11 +1,7 @@
+import { Project } from "@/types"
+
 interface ProjectCardProps {
-  project: {
-    title: string
-    id: number
-    company: string
-    status: string
-    statusColor: string
-  }
+  project: Project
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
@@ -14,10 +10,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1">
           <h3 className="font-semibold text-[#2b3674] text-lg mb-1">{project.title}</h3>
-          <p className="text-[#8f9bba] text-sm">{project.company}</p>
+          <p className="text-[#8f9bba] text-sm">{project.title}</p>
         </div>
 
-        <div className={`px-3 py-1 rounded-full text-xs font-medium text-white ${project.statusColor}`}>
+        <div className={`px-3 py-1 rounded-full text-xs font-medium text-white`}>
           {project.status}
         </div>
       </div>

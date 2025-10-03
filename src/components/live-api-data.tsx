@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { Eye, X, Loader2, AlertCircle, Database, Users, Briefcase, Code2, Settings, Building2 } from 'lucide-react';
-
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
 interface LiveApiDataProps {
   endpoint: {
     path: string;
@@ -33,7 +33,7 @@ export default function LiveApiData({ endpoint, children }: LiveApiDataProps) {
     setData(null);
 
     try {
-      const url = `${endpoint.path}`;
+      const url = `http://localhost:8000/${endpoint.path}`;
       const options: RequestInit = {
         method: endpoint.method,
         headers: {

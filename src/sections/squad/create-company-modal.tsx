@@ -17,14 +17,15 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { createCompany, updateCompany } from "@/services/companyService"
+import { updateDeveloper } from "@/services/developerService";
 
-export function CreateCompanyModal({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => void }) {
+export function CreateSquadModal({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => void }) {
 
   const router = useRouter();
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [company, setCompany] = useState<Company | null>(null);
+  const [squad, setSquad] = useState<{} | null>(null);
   const [companySizes, setCompanySizes] = useState<any[]>([]);
   const [businessTypes, setBusinessTypes] = useState<any[]>([]);
 
@@ -81,22 +82,22 @@ export function CreateCompanyModal({ open, setOpen }: { open: boolean; setOpen: 
         data.logo = uploadedLogo[0];
       }
 
-      console.log("Saving company with data:", data);
+      console.log("Saving Squad with data:", data);
 
-      if (company) {
-        // Update existing company
-        // await api.companies.update(company.id, data);
-        await updateCompany(company.id, data);
+      if (squad) {
+        // Update existing squad
+        await updateDeveloper(squad.id, data);
       } else {
-        // Create new company
+        // Create new squad
         // await api.companies.create(data);
-       const response = await createCompany(data);
-
-       setOpen(false);
+        createSquad(data)
       }
 
+      setOpen(false);
+
     } catch (error: any) {
-      console.log(error.message || "Failed to save company profile");
+      setError(`Failed to save company: ${error.message}`);
+    //   alert(error.message || "Failed to save company profile");
     } finally {
       setSaving(false);
     }
@@ -304,7 +305,7 @@ export function CreateCompanyModal({ open, setOpen }: { open: boolean; setOpen: 
               <div className="flex justify-end gap-4">
                 <Button
                   type="button"
-                  // onClick={ }
+                  onClick={ () => setOpen(false) }
                   className="px-6 py-2 rounded-lg font-medium transition-colors"
                 >
                   Cancel

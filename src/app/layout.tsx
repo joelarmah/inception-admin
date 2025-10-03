@@ -5,6 +5,7 @@ import { GeistMono } from "geist/font/mono"
 import { ProfileProvider } from "@/contexts/profile-context"
 import "../../styles/globals.css"
 import { ClerkProvider } from "@clerk/nextjs"
+import { Toaster } from "react-hot-toast";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -37,6 +38,7 @@ html {
       <ClerkProvider>
       <body className={`${dmSans.variable} ${GeistMono.variable}`}>
         <ProfileProvider>{children}</ProfileProvider>
+        <Toaster position="top-right" />
       </body>
       </ClerkProvider>
     </html>

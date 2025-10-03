@@ -6,29 +6,35 @@ import { AmpersandLogo } from "@/components/ampersand-logo";
 import { Button } from "../ui/button";
 import { useClerk, useUser } from "@clerk/nextjs";
 import { useState } from "react";
+import { signOut as authSignOut } from "@/services/authService";
 
 type HeaderProps = {
   isAuth?: boolean;
 };
 
 export function Header({ isAuth = false }: HeaderProps) {
-  if (isAuth) {
-    return (
-      <div className="mb-8">
-        <Link
-          href="/"
-          className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to dashboard
-        </Link>
-        <AmpersandLogo />
-      </div>
-    );
-  } else {
+
+  if (!isAuth) {
     const { user } = useUser();
-    const { signOut } = useClerk();
+    const { signOut: clerkSignOut } = useClerk();
     const [isOpen, setIsOpen] = useState(false);
+
+    const handleSignOut = async () => {
+      setIsOpen(false);
+
+      try {
+        // 1. Call your backend authservice to clear server session
+        await authSignOut();
+  
+        // 2. When backend confirms, call Clerk signOut
+        await clerkSignOut();
+  
+      } catch (err) {
+        console.error("Sign out failed:", err);
+        // optional: show toast or fallback to force signOut
+        await clerkSignOut();
+      }
+    }
 
     return (
       <header className="">
@@ -64,8 +70,7 @@ export function Header({ isAuth = false }: HeaderProps) {
 
                       <button
                         onClick={() => {
-                          setIsOpen(false);
-                          signOut();
+                          handleSignOut()
                         }}
                         className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
@@ -91,5 +96,20 @@ export function Header({ isAuth = false }: HeaderProps) {
         </div>
       </header>
     );
+  
+  } else {
+    return (
+      <div className="mb-8">
+        <Link
+          href="/"
+          className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to dashboard
+        </Link>
+        <AmpersandLogo />
+      </div>
+    );
   }
+  
 }
