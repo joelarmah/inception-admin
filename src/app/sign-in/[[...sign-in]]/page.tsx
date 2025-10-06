@@ -15,7 +15,6 @@ import { useRouter } from "next/navigation";
 
 export default function ClerkSignInPage() {
 
-  // Clerk Related Hooks
   const { signIn, setActive, isLoaded } = useSignIn();
   const { getToken, isSignedIn } = useAuth();
 
@@ -59,18 +58,17 @@ export default function ClerkSignInPage() {
           // Sign in w
           // Store token in localstorage
           localStorage.setItem("token", token);
-
           // Route user to dashboard
           router.push("/dashboard");
         }
       } else {
         console.log("Sign in requires more steps:", clerkResult);
       }
-
-      setLoading(false);
     } catch (err: any) {
       console.error("Login failed:", err);
       setError(err?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   }
 

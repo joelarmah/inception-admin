@@ -10,13 +10,11 @@ import { useState } from "react";
 import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
 import { createReference } from "@/services/referenceService";
-import { format } from "path";
 
 type AddReferenceModalProps = {
   title: String;
   open: boolean;
   setOpen: (v: boolean) => void;
-  endpoint: string;
   activeKey: string;
   onCreated: (item: any) => void;
 };
@@ -25,7 +23,6 @@ export function AddReferenceModal({
   title,
   open,
   setOpen,
-  endpoint,
   activeKey,
   onCreated
 }: AddReferenceModalProps) {

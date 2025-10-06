@@ -2,7 +2,8 @@ export interface Company {
     id: string;
     name: string;
     owner_id: string;
-    size_id?: number;
+    size?: string;
+    business_type: string;
     business_type_id?: number;
     location_country?: string;
     location_state?: string;

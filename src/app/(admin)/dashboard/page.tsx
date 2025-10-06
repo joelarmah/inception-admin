@@ -23,7 +23,7 @@ export default function DashboardPage() {
     setLoading(true);
     try {
       const dashboardData = await getDashboardStats();
-      console.log(`Dashboard ==> ${JSON.stringify(dashboardData)}`);
+      // console.log(`Dashboard ==> ${JSON.stringify(dashboardData)}`);
       setDashboard(dashboardData);
     } catch (error) {
       // setDashboard(null);
