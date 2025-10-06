@@ -12,50 +12,77 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import {
-  Loader2,
-  MoreHorizontal
-} from "lucide-react";
-
+import { Loader2, MoreHorizontal } from "lucide-react";
 import { fetchReference } from "@/services/referenceService";
+import { Dropdown } from "rizzui";
+
+const referenceColumns: Record<string, { label: string; key: string }[]> = {
+  "tech-stacks": [
+    { label: "Name", key: "name" },
+    { label: "Category", key: "category" },
+    { label: "Description", key: "description" },
+    { label: "Is Active", key: "is_active" },
+  ],
+  "project-categories": [
+    { label: "Name", key: "name" },
+    { label: "Description", key: "description" },
+    { label: "Is Active", key: "is_active" },
+  ],
+  "experience-levels": [
+    { label: "Name", key: "name" },
+    { label: "Min Years", key: "min_years" },
+    { label: "Max Years", key: "max_years" },
+    { label: "Is Active", key: "is_active" },
+  ],
+  "project-scopes": [
+    { label: "Display Name", key: "display_name" },
+    { label: "Name", key: "name" },
+    { label: "Min Months", key: "min_months" },
+    { label: "Max Months", key: "max_months" },
+    { label: "Is Active", key: "is_active" },
+  ],
+  "budget-types": [
+    { label: "Name", key: "name" },
+    { label: "Description", key: "description" },
+    { label: "Is Active", key: "is_active" },
+  ],
+  "project-types": [
+    { label: "Name", key: "name" },
+    { label: "Description", key: "description" },
+    { label: "Is Active", key: "is_active" },
+  ],
+};
 
 export default function ReferencesPage() {
-
   const referenceData = [
     {
       title: "Tech Stacks",
       key: "tech-stacks",
-      // path: `${baseUrl}/admin/reference/tech-stacks`,
       description: "View all available technologies and frameworks",
     },
     {
       title: "Project Categories",
       key: "project-categories",
-      // path: `${baseUrl}/admin/reference/project-categories`,
       description: "Browse project categories and types",
     },
     {
       title: "Experience Levels",
       key: "experience-levels",
-      // path: `${baseUrl}/admin/reference/experience-levels`,
       description: "See developer experience level definitions",
     },
     {
       title: "Project Scopes",
       key: "project-scopes",
-      // path: `${baseUrl}/admin/reference/project-scopes`,
       description: "View project scope and duration options",
     },
     {
       title: "Budget Types",
       key: "budget-types",
-      // path: `${baseUrl}/admin/reference/budget-types`,
       description: "Browse budget type options",
     },
     {
       title: "Project Types",
       key: "project-types",
-      // path: `${baseUrl}/admin/reference/project-types`,
       description: "View available project types",
     },
   ];
@@ -75,7 +102,7 @@ export default function ReferencesPage() {
     try {
       const ep = referenceData.find((e) => e.key === activeKey)!;
       const json = await fetchReference(activeKey);
-      // const json = await res.json();
+      console.log(`${activeKey} References ==> ${JSON.stringify(json)}`);
       setDataMap((prev) => ({ ...prev, [activeKey]: json }));
     } catch (e) {
       console.error(e);
@@ -85,7 +112,17 @@ export default function ReferencesPage() {
     }
   };
 
-  const activeEndpoint = referenceData.find((e) => e.key === activeKey)!.path;
+  function onEdit(item: any) {
+    console.log("Edit:", item);
+  }
+
+  function onDelete(item: any) {
+    if (confirm(`Are you sure you want to delete ${item.name}?`)) {
+      console.log("Deleting:", item);
+    }
+  }
+
+  // const activeEndpoint = referenceData.find((e) => e.key === activeKey);
 
   return (
     <div className="w-full">
@@ -124,36 +161,63 @@ export default function ReferencesPage() {
           </div>
         ) : (
           <Table>
-            <TableBody>
-              <TableRow className="border-[#e0e5f2]">
-                <TableCell className="text-[#2b3674] font-medium">
-                  <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 bg-[#a3aed0] rounded-full"></div>
-                    {JSON.stringify(dataMap[activeKey], null, 2)}
-                  </div>
-                </TableCell>
-                {/* <TableCell className="text-[#a3aed0]">Admin</TableCell> */}
-                <TableCell>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="text-[#a3aed0]"
-                  >
-                    <MoreHorizontal className="w-4 h-4" />
-                  </Button>
-                </TableCell>
+            <TableHeader>
+              <TableRow>
+                {(referenceColumns[activeKey] || []).map((col) => (
+                  <TableHead key={col.key}>{col.label}</TableHead>
+                ))}
+                <TableHead>Actions</TableHead>
               </TableRow>
+            </TableHeader>
+
+            <TableBody>
+              {(dataMap[activeKey] || []).map((item) => (
+                <TableRow key={item.id} className="border-[#e0e5f2]">
+                  {(referenceColumns[activeKey] || []).map((col) => (
+                    <TableCell key={col.key} className="text-[#2b3674]">
+                      {item[col.key] ?? "-"}
+                    </TableCell>
+                  ))}
+
+                  <TableCell>
+                    <Dropdown>
+                      <Dropdown.Trigger>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="text-[#a3aed0]"
+                        >
+                          <MoreHorizontal className="w-4 h-4" />
+                        </Button>
+                      </Dropdown.Trigger>
+                      <Dropdown.Menu>
+                        <Dropdown.Item
+                          onClick={() => onEdit(dataMap[activeKey])}
+                          className="flex items-center gap-2"
+                        >
+                          Edit
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => onDelete(dataMap[activeKey])}
+                          className="flex items-center gap-2 text-red-500 focus:text-red-600"
+                        >
+                          Delete
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         )}
       </div>
 
-       {/* Modal */}
-       <AddReferenceModal
-       title={"title"}
+      {/* Modal */}
+      <AddReferenceModal
+        title={"title"}
         open={modalOpen}
         setOpen={setModalOpen}
-        endpoint={activeEndpoint}
         activeKey={activeKey}
         onCreated={(item) =>
           setDataMap((prev) => ({
@@ -162,7 +226,6 @@ export default function ReferencesPage() {
           }))
         }
       />
-
     </div>
   );
 }

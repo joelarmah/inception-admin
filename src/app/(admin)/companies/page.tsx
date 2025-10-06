@@ -63,7 +63,6 @@ export default function CompaniesPage() {
             </div>
 
             {companies && companies.length > 0 ? (
-              companies.map((company) => (
                 <Table>
                   <TableHeader>
                     <TableRow className="border-[#e0e5f2]">
@@ -87,6 +86,7 @@ export default function CompaniesPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
+                  {companies.map((company) => (
                     <TableRow key={company.id} className="border-[#e0e5f2]">
                       <TableCell className="text-[#2b3674] font-medium">
                         <div className="flex items-center gap-2">
@@ -97,12 +97,12 @@ export default function CompaniesPage() {
 
                       <TableCell className="text-[#a3aed0]">
                         {" "}
-                        {company.business_type_id}
+                        {company.business_type}
                       </TableCell>
 
                       <TableCell className="text-[#a3aed0]">
                         {" "}
-                        {company.size_id}
+                        {company.size}
                       </TableCell>
 
                       <TableCell>
@@ -113,9 +113,9 @@ export default function CompaniesPage() {
                         ></Button>
                       </TableCell>
                     </TableRow>
+                  ))}
                   </TableBody>
                 </Table>
-              ))
             ) : (
               <div className="bg-white rounded-2xl border border-[#e0e5f2]">
                 <EmptyState
