@@ -5,9 +5,8 @@ import { ArrowLeft, Bell, User } from "lucide-react";
 import { AmpersandLogo } from "@/components/ampersand-logo";
 import { Button } from "../ui/button";
 import { useClerk, useUser } from "@clerk/nextjs";
-import { useState } from "react";
 import { signOut as authSignOut } from "@/services/authService";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 import { Dropdown } from "../ui/dropdown";
 
 type HeaderProps = {
@@ -15,28 +14,24 @@ type HeaderProps = {
 };
 
 export function Header({ isAuth = false }: HeaderProps) {
-
   if (!isAuth) {
-
     const { user } = useUser();
     const { signOut: clerkSignOut } = useClerk();
-    const router = useRouter()
+    const router = useRouter();
 
     const handleSignOut = async () => {
-
       try {
         // 1. Call your backend authservice to clear server session
         await authSignOut();
-  
+
         // 2. When backend confirms, call Clerk signOut
         await clerkSignOut();
-  
       } catch (err) {
         console.error("Sign out failed:", err);
         // optional: show toast or fallback to force signOut
         await clerkSignOut();
       }
-    }
+    };
 
     return (
       <header className="">
@@ -52,56 +47,27 @@ export function Header({ isAuth = false }: HeaderProps) {
               </Button>
 
               {user ? (
-              
-              <Dropdown
-              trigger={
-                <div className="w-10 h-10 bg-[#4318ff] rounded-full flex items-center justify-center cursor-pointer">
-                  <User className="w-5 h-5 text-white" />
-                </div>
-              }
-              items={[
-                {
-                  label: 'Profile',
-                  onClick: () => { router.push('/profile') },
-                },
-                {
-                  label: 'Logout',
-                  onClick: handleSignOut,
-                  className: 'text-red-600 hover:bg-red-50',
-                },
-              ]}
-              align="end"
-            />
-
-                // <div className="relative">
-                //   <div
-                //     onClick={() => setIsOpen(!isOpen)}
-                //     className="w-10 h-10 bg-[#4318ff] rounded-full flex items-center justify-center cursor-pointer"
-                //   >
-                //     <User className="w-5 h-5 text-white" />
-                //   </div>
-
-                //   {isOpen && (
-                //     <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-50">
-                //       <Link
-                //         href="/profile"
-                //         onClick={() => setIsOpen(false)}
-                //         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                //       >
-                //         Profile
-                //       </Link>
-
-                //       <button
-                //         onClick={() => {
-                //           handleSignOut()
-                //         }}
-                //         className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                //       >
-                //         Logout
-                //       </button>
-                //     </div>
-                //   )}
-                // </div>
+                <Dropdown
+                  trigger={
+                    <div className="w-10 h-10 bg-[#4318ff] rounded-full flex items-center justify-center cursor-pointer">
+                      <User className="w-5 h-5 text-white" />
+                    </div>
+                  }
+                  items={[
+                    {
+                      label: "Profile",
+                      onClick: () => {
+                        router.push("/profile");
+                      },
+                    },
+                    {
+                      label: "Logout",
+                      onClick: handleSignOut,
+                      className: "text-red-600 hover:bg-red-50",
+                    },
+                  ]}
+                  align="end"
+                />
               ) : (
                 <Link
                   href="/sign-in"
@@ -115,7 +81,6 @@ export function Header({ isAuth = false }: HeaderProps) {
         </div>
       </header>
     );
-  
   } else {
     return (
       <div className="mb-8">
@@ -130,5 +95,4 @@ export function Header({ isAuth = false }: HeaderProps) {
       </div>
     );
   }
-  
 }
