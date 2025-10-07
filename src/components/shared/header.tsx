@@ -7,6 +7,8 @@ import { Button } from "../ui/button";
 import { useClerk, useUser } from "@clerk/nextjs";
 import { useState } from "react";
 import { signOut as authSignOut } from "@/services/authService";
+import { useRouter } from 'next/navigation'
+import { Dropdown } from "../ui/dropdown";
 
 type HeaderProps = {
   isAuth?: boolean;
@@ -15,12 +17,12 @@ type HeaderProps = {
 export function Header({ isAuth = false }: HeaderProps) {
 
   if (!isAuth) {
+
     const { user } = useUser();
     const { signOut: clerkSignOut } = useClerk();
-    const [isOpen, setIsOpen] = useState(false);
+    const router = useRouter()
 
     const handleSignOut = async () => {
-      setIsOpen(false);
 
       try {
         // 1. Call your backend authservice to clear server session
@@ -50,35 +52,56 @@ export function Header({ isAuth = false }: HeaderProps) {
               </Button>
 
               {user ? (
-                <div className="relative">
-                  <div
-                    onClick={() => setIsOpen(!isOpen)}
-                    className="w-10 h-10 bg-[#4318ff] rounded-full flex items-center justify-center cursor-pointer"
-                  >
-                    <User className="w-5 h-5 text-white" />
-                  </div>
-
-                  {isOpen && (
-                    <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-50">
-                      <Link
-                        href="/profile"
-                        onClick={() => setIsOpen(false)}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      >
-                        Profile
-                      </Link>
-
-                      <button
-                        onClick={() => {
-                          handleSignOut()
-                        }}
-                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      >
-                        Logout
-                      </button>
-                    </div>
-                  )}
+              
+              <Dropdown
+              trigger={
+                <div className="w-10 h-10 bg-[#4318ff] rounded-full flex items-center justify-center cursor-pointer">
+                  <User className="w-5 h-5 text-white" />
                 </div>
+              }
+              items={[
+                {
+                  label: 'Profile',
+                  onClick: () => { router.push('/profile') },
+                },
+                {
+                  label: 'Logout',
+                  onClick: handleSignOut,
+                  className: 'text-red-600 hover:bg-red-50',
+                },
+              ]}
+              align="end"
+            />
+
+                // <div className="relative">
+                //   <div
+                //     onClick={() => setIsOpen(!isOpen)}
+                //     className="w-10 h-10 bg-[#4318ff] rounded-full flex items-center justify-center cursor-pointer"
+                //   >
+                //     <User className="w-5 h-5 text-white" />
+                //   </div>
+
+                //   {isOpen && (
+                //     <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-50">
+                //       <Link
+                //         href="/profile"
+                //         onClick={() => setIsOpen(false)}
+                //         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                //       >
+                //         Profile
+                //       </Link>
+
+                //       <button
+                //         onClick={() => {
+                //           handleSignOut()
+                //         }}
+                //         className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                //       >
+                //         Logout
+                //       </button>
+                //     </div>
+                //   )}
+                // </div>
               ) : (
                 <Link
                   href="/sign-in"
@@ -87,10 +110,6 @@ export function Header({ isAuth = false }: HeaderProps) {
                   Sign In
                 </Link>
               )}
-
-              {/* <div className="w-10 h-10 bg-[#4318ff] rounded-full flex items-center justify-center">
-                <User className="w-5 h-5 text-white" />
-              </div> */}
             </div>
           </div>
         </div>

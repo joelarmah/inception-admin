@@ -12,9 +12,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import { Loader2, MoreHorizontal } from "lucide-react";
+import { Edit, Loader2, MoreHorizontal, Trash } from "lucide-react";
 import { fetchReference } from "@/services/referenceService";
-import { Dropdown } from "rizzui";
+import { Dropdown } from "@/components/ui/dropdown";
 
 const referenceColumns: Record<string, { label: string; key: string }[]> = {
   "tech-stacks": [
@@ -180,8 +180,8 @@ export default function ReferencesPage() {
                   ))}
 
                   <TableCell>
-                    <Dropdown>
-                      <Dropdown.Trigger>
+                    <Dropdown
+                      trigger={
                         <Button
                           variant="ghost"
                           size="icon"
@@ -189,22 +189,21 @@ export default function ReferencesPage() {
                         >
                           <MoreHorizontal className="w-4 h-4" />
                         </Button>
-                      </Dropdown.Trigger>
-                      <Dropdown.Menu>
-                        <Dropdown.Item
-                          onClick={() => onEdit(dataMap[activeKey])}
-                          className="flex items-center gap-2"
-                        >
-                          Edit
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          onClick={() => onDelete(dataMap[activeKey])}
-                          className="flex items-center gap-2 text-red-500 focus:text-red-600"
-                        >
-                          Delete
-                        </Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
+                      }
+                      items={[
+                        {
+                          label: "Edit",
+                          icon: <Edit className="w-4 h-4 text-gray-500" />,
+                          onClick: () => onEdit(dataMap[activeKey]),
+                        },
+                        {
+                          label: "Delete",
+                          icon: <Trash className="w-4 h-4 text-red-500" />,
+                          className: "text-red-600 hover:bg-red-50",
+                          onClick: () => onDelete(dataMap[activeKey]),
+                        },
+                      ]}
+                    />
                   </TableCell>
                 </TableRow>
               ))}
