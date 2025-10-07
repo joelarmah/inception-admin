@@ -44,99 +44,10 @@ export default function HomePage() {
     }
   }, [isLoaded, isSignedIn, router]);
 
-  const publicEndpoints = [
-    {
-      method: 'POST',
-      path: 'api/v1/auth/signup',
-      description: 'Create new user account with role selection',
-      public: true,
-      example: '{ "email": "dev@example.com", "password": "SecurePass123!", "user_type": "developer" }'
-    },
-    {
-      method: 'POST', 
-      path: 'api/v1/auth/signin',
-      description: 'Authenticate user and sync with backend',
-      public: true,
-      example: '{ "clerk_token": "your_clerk_session_token" }'
-    },
-    {
-      method: 'GET',
-      path: 'api/v1/reference/tech-stacks',
-      description: 'Get available technologies and frameworks',
-      public: false,
-      example: 'Returns: [{ "id": 1, "name": "React", "category": "Frontend" }]'
-    },
-    {
-      method: 'GET',
-      path: 'api/v1/reference/project-categories', 
-      description: 'Get project category options',
-      public: false,
-      example: 'Returns: [{ "id": 1, "name": "Web Development", "description": "..." }]'
-    },
-    {
-      method: 'GET',
-      path: 'api/v1/reference/experience-levels',
-      description: 'Get developer experience level options',
-      public: false, 
-      example: 'Returns: [{ "id": 1, "name": "Junior", "min_years": 0, "max_years": 2 }]'
-    },
-    {
-      method: 'GET',
-      path: 'api/v1/reference/project-scopes',
-      description: 'Get project scope and duration options', 
-      public: false,
-      example: 'Returns: [{ "id": 1, "name": "Small", "min_months": 1, "max_months": 3 }]'
-    }
-  ];
-
-  const liveApiEndpoints = [
-    {
-      path: 'api/v1/admin/reference/tech-stacks',
-      method: 'GET',
-      description: 'View all available technologies and frameworks',
-      title: 'Tech Stacks',
-      icon: <Code2 className="w-4 h-4" />
-    },
-    {
-      path: 'api/v1/admin/reference/project-categories',
-      method: 'GET', 
-      description: 'Browse project categories and types',
-      title: 'Project Categories',
-      icon: <Briefcase className="w-4 h-4" />
-    },
-    {
-      path: 'api/v1/admin/reference/experience-levels',
-      method: 'GET',
-      description: 'See developer experience level definitions',
-      title: 'Experience Levels',
-      icon: <TrendingUp className="w-4 h-4" />
-    },
-    {
-      path: 'api/v1/admin/reference/project-scopes',
-      method: 'GET',
-      description: 'View project scope and duration options',
-      title: 'Project Scopes', 
-      icon: <Settings className="w-4 h-4" />
-    },
-    {
-      path: 'api/v1/admin/reference/budget-types',
-      method: 'GET',
-      description: 'Browse budget type options',
-      title: 'Budget Types',
-      icon: <Database className="w-4 h-4" />
-    },
-    {
-      path: 'api/v1/admin/reference/project-types',
-      method: 'GET',
-      description: 'View available project types',
-      title: 'Project Types',
-      icon: <Globe className="w-4 h-4" />
-    }
-  ];
 
   if (!isLoaded) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-violet-900 to-pink-900">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
       </div>
     );
