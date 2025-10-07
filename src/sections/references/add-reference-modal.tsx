@@ -1,4 +1,4 @@
-import { Loader2, Save, Users } from "lucide-react";
+import { Loader2, Save } from "lucide-react";
 import {
   Dialog,
   DialogContent,

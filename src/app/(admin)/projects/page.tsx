@@ -28,6 +28,7 @@ export default function ProjectPage() {
       setProjects(projectsData.items);
     } catch (error) {
       setProjects([]);
+      console.log(error);
     } finally {
       setLoading(false);
     }

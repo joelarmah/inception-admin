@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Sidebar } from "@/components/sidebar";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { useProfile } from "@/contexts/profile-context";
 import {
@@ -11,6 +9,7 @@ import {
   Cloud,
   Edit,
 } from "lucide-react";
+import Image from "next/image";
 
 export default function ProfilePage() {
   
@@ -68,7 +67,9 @@ export default function ProfilePage() {
               <div className="px-8 pb-8">
                 <div className="flex items-end -mt-16 mb-6">
                   <div className="w-24 h-24 rounded-full border-4 border-white overflow-hidden bg-white">
-                    <img
+                    <Image
+                      width={15}
+                      height={15}
                       src="/professional-developer-headshot.png"
                       alt="Profile"
                       className="w-full h-full object-cover"
@@ -118,9 +119,11 @@ export default function ProfilePage() {
                     key={project.id}
                     className="flex items-center gap-4 p-4 rounded-xl hover:bg-[#f4f7fe] transition-colors"
                   >
-                    <img
+                    <Image
                       src={project.image || "/placeholder.svg"}
                       alt={project.title}
+                      width={20}
+                      height={20}
                       className="w-16 h-16 rounded-xl object-cover"
                     />
                     <div className="flex-1">

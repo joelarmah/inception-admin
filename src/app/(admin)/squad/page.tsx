@@ -13,9 +13,10 @@ import {
   Globe,
   Briefcase,
   UsersIcon,
+  Loader2,
 } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";
-import { getDevelopers, getDeveloperById } from "@/services/developerService";
+import { getDevelopers } from "@/services/developerService";
 import { CreateSquadModal } from "@/sections/squad/create-company-modal";
 import { DeveloperProfile } from "@/types";
 
@@ -23,13 +24,14 @@ export default function SquadPage() {
 
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>("");
   const [developers, setDevelopers] = useState<DeveloperProfile[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  // const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = useState(false);
-  const [selectedTechStacks, setSelectedTechStacks] = useState<string[]>([]);
-  const [experienceFilter, setExperienceFilter] = useState("all");
-  const [availabilityFilter, setAvailabilityFilter] = useState("all");
-  const [techStacks, setTechStacks] = useState<any[]>([]);
+  // const [selectedTechStacks, setSelectedTechStacks] = useState<string[]>([]);
+  // const [experienceFilter, setExperienceFilter] = useState("all");
+  // const [availabilityFilter, setAvailabilityFilter] = useState("all");
+  // const [techStacks, setTechStacks] = useState<any[]>([]);
 
   useEffect(() => {
     fetchDevelopers();
@@ -43,13 +45,25 @@ export default function SquadPage() {
       console.log(`Squad ==> ${JSON.stringify(developersData)}`);
     } catch (error) {
       setDevelopers([]);
+      setError(`${error}`);
     } finally {
       setLoading(false);
     }
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-12 h-12 animate-spin" />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen">
+      
+      {error && <p className="text-red-500 text-sm">{error}</p>}
+
       <div className="space-y-6">
         <div className="grid grid-cols-1 gap-6">
           <Card className="p-6 border-[#e0e5f2]">
@@ -60,7 +74,7 @@ export default function SquadPage() {
 
             {developers.length > 0 ? (
               <div className="grid grid-cols-3 gap-6">
-                {developers.map((developer, index) => (
+                {developers.map((developer) => (
                   <div
                     key={developer.id}
                     className="bg-black/30 backdrop-blur-xl border border-white/10 rounded-xl p-6 hover:bg-black/40 transition-all"

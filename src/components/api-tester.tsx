@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Play, Copy, Check, Loader2, AlertCircle, CheckCircle } from 'lucide-react';
+import { Play, Loader2, AlertCircle, CheckCircle } from 'lucide-react';
 
 interface ApiTesterProps {
   endpoint: {
@@ -14,7 +14,8 @@ interface ApiTesterProps {
 }
 
 export default function ApiTester({ endpoint }: ApiTesterProps) {
-  const [response, setResponse] = useState<any>(null);
+
+  const [response, setResponse] = useState<unknown>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [requestBody, setRequestBody] = useState(

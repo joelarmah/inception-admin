@@ -8,7 +8,7 @@ import { PagedResponse, User } from "@/types";
 //   });
 // }
 
-export async function updateUser(userId: string, data: any) {
+export async function updateUser(userId: string, data: User) {
   return apiClient<object>(`/admin/users/${userId}`, {
     method: "PUT",
     body: data,

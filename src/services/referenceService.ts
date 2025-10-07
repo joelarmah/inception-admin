@@ -7,7 +7,7 @@ export async function fetchReference(key: string) {
   });
 }
 
-export async function createReference(key: string, referenceData: any) {
+export async function createReference(key: string, referenceData: object) {
   return apiClient<unknown>(`/admin/reference/${key}`, {
     method: "POST",
     body: referenceData,

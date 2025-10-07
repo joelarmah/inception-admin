@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AddReferenceModal } from "@/sections/references/add-reference-modal";
 import { Button } from "@/components/ui/button";
 import {
@@ -92,25 +92,45 @@ export default function ReferencesPage() {
   const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
-  useEffect(() => {
-    if (dataMap[activeKey]) return;
-    fetchData();
-  }, [activeKey]);
+  // useEffect(() => {
+  //   if (dataMap[activeKey]) return;
+  //   fetchData();
+  // }, [activeKey, dataMap]);
 
-  const fetchData = async () => {
+  // const fetchData = async () => {
+  //   setLoading(true);
+  //   try {
+  //     // const ep = referenceData.find((e) => e.key === activeKey)!;
+  //     const json = await fetchReference(activeKey);
+  //     console.log(`${activeKey} References ==> ${JSON.stringify(json)}`);
+  //     setDataMap((prev) => ({ ...prev, [activeKey]: json }));
+  //   } catch (e) {
+  //     console.error(e);
+  //     setDataMap((prev) => ({ ...prev, [activeKey]: [] }));
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  const fetchData = useCallback(async () => {
     setLoading(true);
-    try {
-      // const ep = referenceData.find((e) => e.key === activeKey)!;
+    try { 
       const json = await fetchReference(activeKey);
+      const data = Array.isArray(json) ? json : json.items ?? [];
       console.log(`${activeKey} References ==> ${JSON.stringify(json)}`);
-      setDataMap((prev) => ({ ...prev, [activeKey]: json }));
+      setDataMap((prev) => ({ ...prev, [activeKey]: data }));
     } catch (e) {
       console.error(e);
       setDataMap((prev) => ({ ...prev, [activeKey]: [] }));
     } finally {
       setLoading(false);
     }
-  };
+  }, [activeKey]);
+  
+  useEffect(() => {
+    if (dataMap[activeKey]) return;
+    fetchData();
+  }, [activeKey, dataMap, fetchData]);
 
   function onEdit(item: any) {
     console.log("Edit:", item);

@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { SignIn, useAuth, useSignIn } from "@clerk/nextjs";
+import { useAuth, useSignIn } from "@clerk/nextjs";
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 
 export default function ClerkSignInPage() {
 
-  const { signIn, setActive, isLoaded } = useSignIn();
+  const { signIn, setActive } = useSignIn();
   const { getToken, isSignedIn } = useAuth();
 
   const router = useRouter();

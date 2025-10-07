@@ -1,8 +1,8 @@
 
 'use client';
 
-import { useAuth } from '@clerk/nextjs';
-import { useCallback } from 'react';
+// import { useAuth } from '@clerk/nextjs';
+// import { useCallback } from 'react';
 // import { apiClient } from '@/lib/apiClient';
 
 export function useApi() {

@@ -2,11 +2,12 @@
 
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Globe } from "lucide-react";
 import Link from "next/link";
 
 export default function HomePage() {
+  
   const { isLoaded, isSignedIn } = useUser();
   const router = useRouter();
   // const [copiedEndpoint, setCopiedEndpoint] = useState<string | null>(null);

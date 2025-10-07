@@ -71,7 +71,7 @@ export default function ProfileStep4() {
           <div className="space-y-8">
             <div>
               <p className="text-sm text-gray-500 mb-2">Step 4/5</p>
-              <h1 className="text-4xl font-bold text-slate-800 mb-4">What's your stack?</h1>
+              <h1 className="text-4xl font-bold text-slate-800 mb-4">What&apos;s your stack?</h1>
               <p className="text-gray-600">Provide your main and most experienced area</p>
             </div>
 

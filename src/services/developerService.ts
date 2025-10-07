@@ -44,7 +44,7 @@ export async function createDeveloper(
   });
 }
 
-export async function updateDeveloper(developerId: string, data: any) {
+export async function updateDeveloper(developerId: string, data: DeveloperProfile) {
   return apiClient<unknown>(`/projects/${developerId}/`, {
     method: "PUT",
     body: data,

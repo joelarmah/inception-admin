@@ -10,10 +10,11 @@ import { theme } from "@/lib/theme"
 import { Plus, Linkedin } from "lucide-react"
 
 export default function ProfileStep2() {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [workExperiences, setWorkExperiences] = useState<any[]>([])
 
-  const handleAddWorkExperience = (experience: any) => {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [workExperiences, setWorkExperiences] = useState<unknown[]>([])
+
+  const handleAddWorkExperience = (experience: unknown) => {
     setWorkExperiences((prev) => [...prev, experience])
   }
 

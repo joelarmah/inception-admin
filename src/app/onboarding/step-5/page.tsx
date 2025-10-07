@@ -1,16 +1,13 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { AmpersandLogo } from "@/components/ampersand-logo"
-import { theme } from "@/lib/theme"
-import { Plus, Linkedin } from "lucide-react"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { AmpersandLogo } from "@/components/ampersand-logo";
+import { theme } from "@/lib/theme";
+import { Plus, Linkedin } from "lucide-react";
 
 export default function ProfileStep5() {
-  const [educationBackground, setEducationBackground] = useState<any[]>([])
-
   return (
     <div className="min-h-screen bg-white">
       <div className="flex items-center justify-between p-6">
@@ -27,21 +24,27 @@ export default function ProfileStep5() {
         </div>
       </div>
 
-             <div className="flex">
-         <div className="flex-1 flex flex-col justify-center px-4 sm:px-6 lg:px-20 xl:px-24 max-w-2xl">
+      <div className="flex">
+        <div className="flex-1 flex flex-col justify-center px-4 sm:px-6 lg:px-20 xl:px-24 max-w-2xl">
           <div className="space-y-8">
             <div>
               <p className="text-sm text-gray-500 mb-2">Step 5/5</p>
-              <h1 className="text-4xl font-bold text-slate-800 mb-4">Add any education background</h1>
+              <h1 className="text-4xl font-bold text-slate-800 mb-4">
+                Add any education background
+              </h1>
               <p className="text-gray-600">
-                If you are just starting out you can skip this step and tell us about an interesting project you have
-                worked on
+                If you are just starting out you can skip this step and tell us
+                about an interesting project you have worked on
               </p>
             </div>
           </div>
 
           <div className="flex justify-between items-center mt-12">
-            <Button variant="ghost" asChild className="text-gray-600 hover:text-gray-800">
+            <Button
+              variant="ghost"
+              asChild
+              className="text-gray-600 hover:text-gray-800"
+            >
               <Link href="/developer/onboarding/step-4">Back</Link>
             </Button>
             <Button
@@ -57,9 +60,12 @@ export default function ProfileStep5() {
           </div>
         </div>
 
-                 <div className="flex-1 bg-gray-50 flex items-center justify-center px-8">
+        <div className="flex-1 bg-gray-50 flex items-center justify-center px-8">
           <div className="w-full max-w-md space-y-4">
-            <Button variant="outline" className="w-full h-12 rounded-sm border-gray-300 hover:border-gray-400 bg-white">
+            <Button
+              variant="outline"
+              className="w-full h-12 rounded-sm border-gray-300 hover:border-gray-400 bg-white"
+            >
               <Plus className="w-4 h-4 mr-2" />
               Add Educational Background
             </Button>
@@ -77,5 +83,5 @@ export default function ProfileStep5() {
         </div>
       </div>
     </div>
-  )
+  );
 }
