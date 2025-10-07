@@ -100,7 +100,7 @@ export default function ReferencesPage() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const ep = referenceData.find((e) => e.key === activeKey)!;
+      // const ep = referenceData.find((e) => e.key === activeKey)!;
       const json = await fetchReference(activeKey);
       console.log(`${activeKey} References ==> ${JSON.stringify(json)}`);
       setDataMap((prev) => ({ ...prev, [activeKey]: json }));

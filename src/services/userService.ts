@@ -1,15 +1,15 @@
 import { apiClient } from "@/lib/apiClient";
 import { PagedResponse, User } from "@/types";
 
-export async function createUser(data: any) {
-  return apiClient<{}>(`/admin/users`, {
-    method: "POST",
-    body: data,
-  });
-}
+// export async function createUser(data: any) {
+//   return apiClient<{}>(`/admin/users`, {
+//     method: "POST",
+//     body: data,
+//   });
+// }
 
 export async function updateUser(userId: string, data: any) {
-  return apiClient<{}>(`/admin/users/${userId}`, {
+  return apiClient<object>(`/admin/users/${userId}`, {
     method: "PUT",
     body: data,
   });

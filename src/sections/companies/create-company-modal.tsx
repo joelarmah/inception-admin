@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Briefcase, Globe, Loader2, MapPin, Save, Users } from "lucide-react";
-import { Company } from "@/types";
+import { Company, CompanySize } from "@/types";
 import FileUpload from "@/components/file-upload";
 import { useRouter } from "next/navigation";
 import { Label } from "@/components/ui/label";
@@ -25,7 +25,7 @@ export function CreateCompanyModal({ open, setOpen }: { open: boolean; setOpen: 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [company, setCompany] = useState<Company | null>(null);
-  const [companySizes, setCompanySizes] = useState<any[]>([]);
+  const [companySizes, setCompanySizes] = useState<CompanySize[]>([]);
   const [businessTypes, setBusinessTypes] = useState<any[]>([]);
 
   const [formData, setFormData] = useState({

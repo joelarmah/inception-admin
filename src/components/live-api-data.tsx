@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Eye, X, Loader2, AlertCircle, Database, Users, Briefcase, Code2, Settings, Building2 } from 'lucide-react';
+import { Eye, X, Loader2, AlertCircle } from 'lucide-react';
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
 interface LiveApiDataProps {
   endpoint: {

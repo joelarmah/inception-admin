@@ -25,7 +25,7 @@ export function CreateSquadModal({ open, setOpen }: { open: boolean; setOpen: (v
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [squad, setSquad] = useState<{} | null>(null);
+  const [squad, setSquad] = useState<unknown | null>(null);
   const [companySizes, setCompanySizes] = useState<any[]>([]);
   const [businessTypes, setBusinessTypes] = useState<any[]>([]);
 

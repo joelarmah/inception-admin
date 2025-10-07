@@ -7,8 +7,12 @@ export interface ReferenceData {
 
 export interface CompanySize extends ReferenceData {
   employee_range?: string;
+  size_range: string,
+  display_name : string,
+  is_active: true,
+  created_at: string,
+  updated_at: string
 }
-
 export interface BusinessType extends ReferenceData {
   category?: string;
 }
