@@ -1,17 +1,17 @@
 import { apiClient } from "@/lib/apiClient";
 import { Company, PagedResponse } from "@/types";
 
-export async function createCompany(data: any) {
-  return apiClient<{}>(`/companies/company`, {
+export async function createCompany(company: Company) {
+  return apiClient<unknown>(`/companies/company`, {
     method: "POST",
-    body: data,
+    body: company,
   });
 }
 
-export async function updateCompany(companyId: string, data: any) {
-  return apiClient<{}>(`/companies/company/${companyId}`, {
+export async function updateCompany(companyId: string, company: Company) {
+  return apiClient<unknown>(`/companies/company/${companyId}`, {
     method: "PUT",
-    body: data,
+    body: company,
   });
 }
 

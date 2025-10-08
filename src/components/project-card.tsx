@@ -1,6 +1,9 @@
 import { Project } from "@/types"
 
-interface ProjectCardProps extends Project {};
+interface ProjectCardProps extends Project {
+  title: string;
+  status: string;
+};
 
 export function ProjectCard({ title, status }: ProjectCardProps) {
   return (

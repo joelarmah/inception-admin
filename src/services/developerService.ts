@@ -18,7 +18,7 @@ export async function approveDeveloper(
   reason: string,
   notes: string
 ) {
-  return apiClient<{}>(`/admin/developers/${developerId}/approve/`, {
+  return apiClient<unknown>(`/admin/developers/${developerId}/approve/`, {
     method: "POST",
     body: { reason: reason, notes: notes },
   });
@@ -29,7 +29,7 @@ export async function rejectDeveloper(
   reason: string,
   notes: string
 ) {
-  return apiClient<{}>(`/admin/developers/${developerId}/approve/`, {
+  return apiClient<unknown>(`/admin/developers/${developerId}/approve/`, {
     method: "POST",
     body: { reason: reason, notes: notes },
   });
@@ -38,14 +38,14 @@ export async function rejectDeveloper(
 export async function createDeveloper(
   data: string
 ) {
-  return apiClient<{}>(`/admin/developers/`, {
+  return apiClient<unknown>(`/admin/developers/`, {
     method: "POST",
     body: data,
   });
 }
 
-export async function updateDeveloper(developerId: string, data: any) {
-  return apiClient<{}>(`/projects/${developerId}/`, {
+export async function updateDeveloper(developerId: string, data: DeveloperProfile) {
+  return apiClient<unknown>(`/projects/${developerId}/`, {
     method: "PUT",
     body: data,
   });
