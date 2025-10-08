@@ -1,5 +1,5 @@
+import { EmptyState } from "@/components/empty-state"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { EmptyState } from "../empty-state"
 import { Trophy } from "lucide-react"
 
 interface LeaderBoardProps {

@@ -3,16 +3,15 @@
 import { useEffect, useState } from "react";
 import { StatsCard } from "@/components/stats-card";
 import { ProjectCard } from "@/components/project-card";
-import { LeaderBoard } from "@/components/dashboard/leader-board";
 import { EmptyState } from "@/components/empty-state";
 import { TrendingUp, CheckCircle, Folder, Clock, Loader2 } from "lucide-react";
 import { getDashboardStats } from "@/services/dashboardService";
 import { DashboardStats } from "@/types";
+import { LeaderBoard } from "@/sections/dashboard/leader-board";
 
 export default function DashboardPage() {
   const [loading, setLoading] = useState(false);
   const [dashboard, setDashboard] = useState<DashboardStats>();
-  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     fetchDashboardStats();
@@ -26,7 +25,7 @@ export default function DashboardPage() {
       setDashboard(dashboardData);
     } catch (error) {
       // setDashboard(null);
-      setError(`${error}`);
+      console.log(`${error}`);
     } finally {
       setLoading(false);
     }
@@ -107,7 +106,6 @@ export default function DashboardPage() {
 
   return (
     <div className="grid grid-cols-12 gap-6">
-      {error && <p className="text-red-500 text-sm">{error}</p>}
 
       <div className="col-span-12">
         {/* Stats */}
