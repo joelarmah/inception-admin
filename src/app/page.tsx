@@ -10,11 +10,12 @@ export default function HomePage() {
   
   const { isLoaded, isSignedIn } = useUser();
   const router = useRouter();
-  // const [copiedEndpoint, setCopiedEndpoint] = useState<string | null>(null);
 
   useEffect(() => {
     if (isLoaded && isSignedIn) {
       router.push("/dashboard");
+    } else {
+      router.push("sign-in");
     }
   }, [isLoaded, isSignedIn, router]);
 
@@ -27,7 +28,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-violet-900 to-pink-900">
+    <div className="min-h-screen">
       {/* Navigation */}
       <nav className="bg-black/20 backdrop-blur-xl border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
