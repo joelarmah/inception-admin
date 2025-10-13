@@ -105,82 +105,94 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="grid grid-cols-12 gap-6">
-
-      <div className="col-span-12">
-        {/* Stats */}
-        <div className="grid grid-cols-3 gap-6 mb-8">
-          <StatsCard
-            title="Total Projects"
-            value={dashboard?.total_projects ?? 0}
-            subtitle={dashboard?.growth_rate_projects ?? "-"}
-            icon={TrendingUp}
-            iconBg="bg-[#4318ff]"
-          />
-          <StatsCard
-            title="Total Squad"
-            value={dashboard?.total_developers ?? 0}
-            icon={CheckCircle}
-            iconBg="bg-[#4318ff]"
-          />
-          <StatsCard
-            title="Total Companies"
-            value={dashboard?.total_companies ?? 0}
-            icon={Folder}
-            iconBg="bg-[#4318ff]"
-          />
-          <StatsCard
-            title="Total Projects"
-            value={dashboard?.total_companies ?? 0}
-            icon={Folder}
-            iconBg="bg-[#4318ff]"
-          />
-        </div>
-
-        {/* Projects */}
-        <div className="mb-8">
-          <h3 className="text-xl font-bold text-[#2b3674] mb-6">Projects</h3>
-          {projects.length > 0 ? (
-            <div className="grid grid-cols-3 gap-6">
-              {projects.map((project, i) => (
-                <ProjectCard key={i} {...project} />
-              ))}
-            </div>
-          ) : (
-            <EmptyState
-              icon={Folder}
-              title="You have no active projects"
-              description="Place a bid or get invited to join a project"
-              actionText="Browse projects"
-              onAction={() => console.log("Browse projects")}
+    <div className="">
+      <div className="grid grid-cols-12 gap-6">
+        <div className="col-span-12">
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-6 mb-8">
+            <StatsCard
+              title="Total Projects"
+              value={dashboard?.total_projects ?? 0}
+              subtitle={dashboard?.growth_rate_projects ?? "-"}
+              icon={TrendingUp}
+              iconBg="bg-[#4318ff]"
             />
-          )}
+            <StatsCard
+              title="Total Squad"
+              value={dashboard?.total_developers ?? 0}
+              icon={CheckCircle}
+              iconBg="bg-[#4318ff]"
+            />
+            <StatsCard
+              title="Total Companies"
+              value={dashboard?.total_companies ?? 0}
+              icon={Folder}
+              iconBg="bg-[#4318ff]"
+            />
+            <StatsCard
+              title="Total Projects"
+              value={dashboard?.total_companies ?? 0}
+              icon={Folder}
+              iconBg="bg-[#4318ff]"
+            />
+          </div>
         </div>
       </div>
 
-      <div className="col-span-4 space-y-6">
-        <LeaderBoard leaders={mockLeaders} />
-
-        <div className="bg-white rounded-2xl p-6 border border-[#e0e5f2]">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="font-bold text-[#2b3674] text-lg">Task History</h3>
-            <button className="text-[#4318ff] text-sm font-medium">
-              See all
-            </button>
-          </div>
-          {taskHistory.length > 0 ? (
-            <div className="space-y-2">
-              {taskHistory.map((task, i) => (
-                <div key={i}>{task.title}</div>
-              ))}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        {/* Projects */}
+        <div className="space-y-">
+          <div className="bg-white rounded-2xl p-6 border border-[#e0e5f2]">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="font-bold text-[#2b3674] text-lg">Projects</h3>
+              <button className="text-[#4318ff] text-sm font-medium">
+                See all
+              </button>
             </div>
-          ) : (
-            <EmptyState
-              icon={Clock}
-              title="You have no tasks"
-              description="Place a bid or get invited to join a project"
-            />
-          )}
+            {projects.length > 0 ? (
+              <div className="grid grid-cols-3 gap-6">
+                {projects.map((project, i) => (
+                  <ProjectCard key={i} {...project} />
+                ))}
+              </div>
+            ) : (
+              <EmptyState
+                icon={Clock}
+                title="You have no tasks"
+                description="Place a bid or get invited to join a project"
+              />
+            )}
+          </div>
+        </div>
+
+        {/* Leader */}
+        <div className="space-y-6">
+          <LeaderBoard leaders={mockLeaders} />
+        </div>
+
+        {/* 🟦 Task History Section */}
+        <div className="space-y-6">
+          <div className="bg-white rounded-2xl p-6 border border-[#e0e5f2]">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="font-bold text-[#2b3674] text-lg">Task History</h3>
+              <button className="text-[#4318ff] text-sm font-medium">
+                See all
+              </button>
+            </div>
+            {taskHistory.length > 0 ? (
+              <div className="space-y-2">
+                {taskHistory.map((task, i) => (
+                  <div key={i}>{task.title}</div>
+                ))}
+              </div>
+            ) : (
+              <EmptyState
+                icon={Clock}
+                title="You have no tasks"
+                description="Place a bid or get invited to join a project"
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

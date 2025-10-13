@@ -1,3 +1,4 @@
+import { User } from "@/types";
 import { apiClient } from "@lib/apiClient"
 
   export interface SignInResponse {
@@ -23,6 +24,12 @@ import { apiClient } from "@lib/apiClient"
     return apiClient<unknown>("/auth/signin", {
       method: "POST",
       body: { "clerk_token": token },
+    });
+  }
+
+  export async function getSignInUser(token: string) {
+    return apiClient<User>("/auth/me", {
+      method: "GET"
     });
   }
 
